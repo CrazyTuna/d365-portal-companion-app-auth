@@ -24,4 +24,4 @@ You will have to specify only two settings in the `appsettings.json` file:
 ### TODO
 
 - Get Feedback from Microsoft on the way of validating JTW token
-- Validate Nounce ???
+- At the moment, the public key to verify the signed token if acquired when the app starts. If the certificateis renewd, we need to restart the app: Get the new public key automatically if the cert has been renewed.

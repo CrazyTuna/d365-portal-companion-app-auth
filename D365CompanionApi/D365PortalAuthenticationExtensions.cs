@@ -40,8 +40,8 @@ namespace D365CompanionApi
                     ValidAudience = d365PortalOptions.ApplicationId,
                     // Ensure the token was issued by a trusted authorization server (default true):
                     ValidateIssuer = true,
-                    ValidIssuer = d365PortalOptions.Domain
-                };
+                    ValidIssuer = d365PortalOptions.Domain                    
+                };                
             });
         }
 

@@ -26,7 +26,7 @@ namespace D365CompanionApi
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync("https://ccmsdev01.microsoftcrmportals.com/_services/auth/publickey");
+                var response = await client.GetAsync("https://xxxxx.microsoftcrmportals.com/_services/auth/publickey");
                 return await response.Content.ReadAsStringAsync();
             }
         }
@@ -64,10 +64,10 @@ namespace D365CompanionApi
                 ValidateLifetime = true,
                 // Ensure the token audience matches our audience value (default true):
                 ValidateAudience = true,
-                ValidAudience = "abc123",
+                ValidAudience = "xxxx",
                 // Ensure the token was issued by a trusted authorization server (default true):
                 ValidateIssuer = true,
-                ValidIssuer = "ccmsdev01.microsoftcrmportals.com"               
+                ValidIssuer = "xxxxx.microsoftcrmportals.com"               
             };
         }
  

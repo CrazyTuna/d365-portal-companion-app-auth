@@ -22,55 +22,6 @@ namespace D365CompanionApi
 
         public IConfiguration Configuration { get; }
 
-        async Task<string> GetCertificateAsync()
-        {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync("https://xxxxx.microsoftcrmportals.com/_services/auth/publickey");
-                return await response.Content.ReadAsStringAsync();
-            }
-        }
-
-        async Task<TokenValidationParameters> GetTokenValidationParameters()
-        {
-            var cert = await GetCertificateAsync();
-            var rs256Token = cert.Replace("-----BEGIN PUBLIC KEY-----", "");
-            rs256Token = rs256Token.Replace("-----END PUBLIC KEY-----", "");
-            rs256Token = rs256Token.Replace("\n", "");
-            var keyBytes = Convert.FromBase64String(rs256Token);
-                        
-            var asymmetricKeyParameter = PublicKeyFactory.CreateKey(keyBytes);
-            var rsaKeyParameters = (RsaKeyParameters)asymmetricKeyParameter;
-
-            var rsa = new RSACryptoServiceProvider();
-            var rsaParameters = new RSAParameters
-            {
-                Modulus = rsaKeyParameters.Modulus.ToByteArrayUnsigned(),
-                Exponent = rsaKeyParameters.Exponent.ToByteArrayUnsigned()
-            };            
-            rsa.ImportParameters(rsaParameters);
-
-
-            return new TokenValidationParameters
-            {
-                // Clock skew compensates for server time drift.
-                // We recommend 5 minutes or less:
-                ClockSkew = TimeSpan.FromMinutes(5),
-                // Specify the key used to sign the token:
-                IssuerSigningKey = new RsaSecurityKey(rsa),
-                RequireSignedTokens = true,
-                // Ensure the token hasn't expired:
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
-                // Ensure the token audience matches our audience value (default true):
-                ValidateAudience = true,
-                ValidAudience = "xxxx",
-                // Ensure the token was issued by a trusted authorization server (default true):
-                ValidateIssuer = true,
-                ValidIssuer = "xxxxx.microsoftcrmportals.com"               
-            };
-        }
- 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {

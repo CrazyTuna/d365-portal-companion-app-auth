@@ -1,4 +1,4 @@
-# D365 Portal Companion API
+# D365 Portal Companion APP
 Sample API demonstrating how to configure OAuth to authenticate against D365 portal
 
 ### Official documentation
@@ -20,8 +20,3 @@ You will have to specify only two settings in the `appsettings.json` file:
     "ApplicationId": "application id declared in D365 portal settings"
   },
 ```
-
-### TODO
-
-- Get Feedback from Microsoft on the way of validating JTW token
-- At the moment, the public key to verify the signed token if acquired when the app starts. If the certificate is renewed, we need to restart the app: Get the new public key automatically if the cert has been renewed.
